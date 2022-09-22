@@ -222,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1278628549}
   offset: {x: 0, y: 3, z: -10}
+  smoothFactor: 5
 --- !u!1001 &1278628542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -333,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c0f14e99b22cba40994f2a9450e1197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  moveSpeed: 5
   rotationSpeed: 250
 --- !u!70 &1278628546
 CapsuleCollider2D:
