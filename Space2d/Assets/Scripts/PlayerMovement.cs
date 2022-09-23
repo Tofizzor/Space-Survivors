@@ -29,31 +29,27 @@ public class PlayerMovement : MonoBehaviour
         movementDirection = new Vector2(moveHorizontal, moveVertical);
         inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
         movementDirection.Normalize();
+        Debug.Log(Input.GetKey(KeyCode.Space));
+        if (Input.GetKey("space"))
+        {
+            if (Input.GetKey("up") || Input.GetKey("down") || Input.GetKey("left") || Input.GetKey("right"))
+            {
+                ship.AddForce(movementDirection * moveSpeed * inputMagnitude * Time.deltaTime);
+            }
+        }
 
-        transform.Translate(movementDirection * moveSpeed * inputMagnitude * Time.deltaTime, Space.World);
-        
     }
 
     private void FixedUpdate()
     {
         Vector3 currentRotation = this.transform.localEulerAngles;
-        //Debug.Log(currentRotation);
         Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movementDirection);
-        Debug.Log(toRotation);
 
         if (movementDirection != Vector2.zero)
         {
             
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
 
-        }
-
-        if (Input.GetKeyDown("space"))
-        {
-            if (Input.GetButtonDown("left"))
-            {
-
-            }
         }
     }
 }
