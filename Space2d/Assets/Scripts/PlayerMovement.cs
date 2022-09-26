@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D ship;
-    public float moveSpeed = 100f;
+    private float moveSpeed = 100f;
     public float maxVelocity = 10f;
     public float rotationSpeed = 90f;
     public Animator animator;
@@ -20,12 +20,13 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         ship = gameObject.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        animator.SetBool("SpacePressed", false);
+        animator.SetFloat("Blend", 0);
         moveHorizontal = Input.GetAxisRaw("Horizontal");
         moveVertical = Input.GetAxisRaw("Vertical");
 
@@ -33,28 +34,42 @@ public class PlayerMovement : MonoBehaviour
         inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
         movementDirection.Normalize();
         ship.velocity = Vector2.ClampMagnitude(ship.velocity, maxVelocity);
-        Debug.Log(Input.GetKey(KeyCode.Space));
-        if (Input.GetKey("space"))
-        {
-            animator.SetBool("SpacePressed", true);
 
-            if (Input.GetKey("up") || Input.GetKey("down") || Input.GetKey("left") || Input.GetKey("right"))
+        if (Input.GetKey("w") || Input.GetKey("s") || Input.GetKey("a") || Input.GetKey("d"))
+        {
+            if (Input.GetKey("a"))
             {
-                ship.AddForce(movementDirection * moveSpeed * inputMagnitude * Time.deltaTime);
+                animator.SetFloat("Blend", 1);
             }
+            if (Input.GetKey("w"))
+            {
+                animator.SetFloat("Blend", 5);
+            }
+            if (Input.GetKey("d"))
+            {
+                animator.SetFloat("Blend", 10);
+            }
+
+
+            ship.AddRelativeForce(movementDirection * moveSpeed * inputMagnitude * Time.deltaTime);
+            //animator.SetFloat("Blend", 0.5f);
         }
+
+        var mouseLocation = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+        var angle = Mathf.Atan2(mouseLocation.y, mouseLocation.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle-90, Vector3.forward);
+
 
     }
 
     private void FixedUpdate()
     {
-        Vector3 currentRotation = this.transform.localEulerAngles;
-        Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movementDirection);
+       /* Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movementDirection);
 
         if (movementDirection != Vector2.zero)
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-
-        }
+        } */
     }
+
 }

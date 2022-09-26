@@ -160,7 +160,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.764151, g: 0.74612856, b: 0.74612856, a: 0.15686275}
+  m_BackGroundColor: {r: 0.6487184, g: 0.6981132, b: 0.6627256, a: 0.15686275}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -221,8 +221,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1278628549}
-  offset: {x: 0, y: 3, z: -10}
-  smoothFactor: 5
+  offset: {x: 0, y: 0, z: -10}
+  smoothFactor: 1.5
 --- !u!1001 &1278628542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -334,8 +334,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c0f14e99b22cba40994f2a9450e1197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  maxVelocity: 10
   rotationSpeed: 250
+  animator: {fileID: 0}
 --- !u!70 &1278628546
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
